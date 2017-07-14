@@ -1,0 +1,84 @@
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (10.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (9.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateTodos (20170714220413)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE "todos" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "created_by" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170714220413"]]
+  [1m[35m (7.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-07-14 22:05:18.323200"], ["updated_at", "2017-07-14 22:05:18.323200"]]
+  [1m[35m (8.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2017-07-14 19:17:06 -0300
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as */*
+  Rendering e:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.1.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered e:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.1.2/lib/rails/templates/rails/welcome/index.html.erb (10.0ms)
+Completed 200 OK in 517ms (Views: 236.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/todos" for 127.0.0.1 at 2017-07-14 19:17:24 -0300
+Processing by TodosController#index as */*
+  [1m[36mTodo Load (0.0ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+Completed 200 OK in 13ms (Views: 5.7ms | ActiveRecord: 1.5ms)
+
+
+Started POST "/todos?title=teste&created_by=Leo" for 127.0.0.1 at 2017-07-14 19:18:01 -0300
+Processing by TodosController#create as */*
+  Parameters: {"title"=>"teste", "created_by"=>"Leo"}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (2.0ms)[0m  [1m[32mINSERT INTO "todos" ("title", "created_by", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "teste"], ["created_by", "Leo"], ["created_at", "2017-07-14 22:18:02.053741"], ["updated_at", "2017-07-14 22:18:02.053741"]]
+  [1m[35m (11.5ms)[0m  [1m[36mcommit transaction[0m
+Completed 201 Created in 37ms (Views: 0.6ms | ActiveRecord: 16.5ms)
+
+
+Started GET "/todos" for 127.0.0.1 at 2017-07-14 19:18:18 -0300
+Processing by TodosController#index as */*
+  [1m[36mTodo Load (0.5ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+Completed 200 OK in 445ms (Views: 444.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/todoss" for 127.0.0.1 at 2017-07-14 19:18:31 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/todoss"):
+  
+actionpack (5.1.2) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.2) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.2) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.2) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.2) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.2) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.2) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.2) lib/rails/engine.rb:522:in `call'
+puma (3.9.1) lib/puma/configuration.rb:224:in `call'
+puma (3.9.1) lib/puma/server.rb:602:in `handle_request'
+puma (3.9.1) lib/puma/server.rb:435:in `process_client'
+puma (3.9.1) lib/puma/server.rb:299:in `block in run'
+puma (3.9.1) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started POST "/todos?title=teste&created_bysss=Leo" for 127.0.0.1 at 2017-07-14 19:19:17 -0300
+Processing by TodosController#create as */*
+  Parameters: {"title"=>"teste", "created_bysss"=>"Leo"}
+Unpermitted parameter: :created_bysss
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "todos" ("title", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["title", "teste"], ["created_at", "2017-07-14 22:19:17.689408"], ["updated_at", "2017-07-14 22:19:17.689408"]]
+  [1m[35m (16.5ms)[0m  [1m[36mcommit transaction[0m
+Completed 201 Created in 72ms (Views: 0.9ms | ActiveRecord: 21.0ms)
+
+
+Started GET "/todos" for 127.0.0.1 at 2017-07-14 19:19:29 -0300
+Processing by TodosController#index as */*
+  [1m[36mTodo Load (0.5ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+Completed 200 OK in 7ms (Views: 6.5ms | ActiveRecord: 0.5ms)
+
+
