@@ -4,12 +4,14 @@ class TodosController < ApplicationController
     # GET /todos
     def index
         @todos = Todo.all
+        
         json_response(@todos)
     end
 
     # POST /todos
     def create
-        @todo = Todo.create!(todo_params)
+        @todo = Todo.create(todo_params)
+        
         json_response(@todo, :created)
     end
 
@@ -21,19 +23,18 @@ class TodosController < ApplicationController
     # PUT /todos/:id
     def update
         @todo.update(todo_params)
-        head :no_content
+        json_response({ message: "Todo successful updated!" })
     end
 
     # DELETE /todos/:id
     def destroy
-        @todo.destroy
-        head :no_content
+        @todo.destroy        
+        json_response({ message: "Todo successful deleted!" }, :gone)
     end
 
     private
 
     def todo_params
-        # whitelist params
         params.permit(:title, :created_by)
     end
 
